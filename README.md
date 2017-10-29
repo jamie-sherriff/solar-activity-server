@@ -6,21 +6,19 @@
 * The various sources of data has come from [swpc noaa data](http://www.swpc.noaa.gov/products-and-data)
 * The main purpose of this service is to predict [Auroras](http://www.swpc.noaa.gov/phenomena/aurora) Triggered from solar activity.
 
-
 ## Live Demo
 * The service can be viewed online at [Solar Service](https://solar.sherriff.kiwi/solar)
 * A client app that retrieves and displays the data can be viewed at [Solar App](https://solar.sherriff.kiwi)
 
 ## Requirements:
-
 * NodeJs 6+
 * A maxmind city DB for reverse geo ip lookups Source: (https://dev.maxmind.com/maxmind-db/) A helper script is located in /helpers can download this.
 * A Gmail email setup that uses OAuth2
 
-
 ## How to run?
 * Download a maxmind db from above and extract to /static
 * Set the DEFAULT_SOLAR_PORT environment variable for production use port to host the server on
+* Email config file location is set by SOLAR_SERVICE_SECRET_CONFIG_PATH environment variable
 * `npm start` which is alias for `npm install && node index.js`
 
 ## Documentation

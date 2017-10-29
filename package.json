@@ -30,6 +30,10 @@
     "ava": "^0.23.0",
     "nodemon": "^1.12.0"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/jamie-sherriff/solar-activity-server"
+  },
   "scripts": {
     "start": "npm install && node index.js",
     "doc": "apidoc -f index.js -e node_modules && apidoc-markdown2 --path docs --output docs/index.md",
@@ -40,7 +44,7 @@
     "dev": "nodemon index.js --ignore data/ --ignore errorData/"
   },
   "author": "Jamie Sherriff",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "ava": {
     "timeout": "30s",
     "files": [
