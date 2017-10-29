@@ -1,0 +1,52 @@
+{
+  "name": "solar-activity-server",
+  "version": "1.0.0",
+  "description": "solar activity server that retreives data from NOAA",
+  "main": "index.js",
+  "dependencies": {
+    "apidoc": "^0.17.6",
+    "apidoc-markdown2": "^0.3.5",
+    "babel-eslint": "^7.2.3",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "compression": "^1.7.0",
+    "debug": "^3.0.1",
+    "eslint": "^4.6.1",
+    "express": "^4.15.4",
+    "fs-extra": "^4.0.1",
+    "ipaddr.js": "^1.5.2",
+    "lodash": "^4.17.4",
+    "maxmind": "^2.2.0",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "nodemailer": "^4.2.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "serve-static": "^1.13.1",
+    "when": "^3.7.8",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "nodemon": "^1.12.0"
+  },
+  "scripts": {
+    "start": "npm install && node index.js",
+    "doc": "apidoc -f index.js -e node_modules && apidoc-markdown2 --path docs --output docs/index.md",
+    "lint": "eslint index.js src/*.js --fix",
+    "test": "ava",
+    "test-update": "ava --update-snapshots",
+    "run": "node index.js",
+    "dev": "nodemon index.js --ignore data/ --ignore errorData/"
+  },
+  "author": "Jamie Sherriff",
+  "license": "ISC",
+  "ava": {
+    "timeout": "30s",
+    "files": [
+      "test/**/*.js"
+    ],
+    "failWithoutAssertions": true,
+    "verbose": true
+  }
+}

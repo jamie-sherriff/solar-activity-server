@@ -1,0 +1,4 @@
+http://services.swpc.noaa.gov/text/aurora-nowcast-map.txt
+https://gist.github.com/stilist/28dbb76307242e9b5fd7
+http://services.swpc.noaa.gov/text/wing-kp.txt
+http://cdn.softservenews.com/southern_lights.html
