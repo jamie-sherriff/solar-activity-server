@@ -1,38 +1,34 @@
 {
   "name": "solar-activity-server",
-  "version": "1.0.0",
-  "description": "solar activity server that retreives data from NOAA",
+  "version": "2.2.0",
+  "description": "solar activity server that retrieves data from NOAA",
   "main": "index.js",
   "dependencies": {
-    "apidoc": "^0.17.6",
-    "apidoc-markdown2": "^0.3.5",
-    "babel-eslint": "^7.2.3",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "compression": "^1.7.0",
-    "debug": "^3.0.1",
-    "eslint": "^4.6.1",
-    "express": "^4.15.4",
-    "fs-extra": "^4.0.1",
-    "ipaddr.js": "^1.5.2",
-    "lodash": "^4.17.4",
-    "maxmind": "^2.2.0",
-    "moment": "^2.18.1",
-    "moment-timezone": "^0.5.13",
-    "nodemailer": "^4.2.0",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "serve-static": "^1.13.1",
+    "apidoc": "^0.17.7",
+    "apidoc-markdown2": "^0.3.7",
+    "babel-eslint": "^10.0.1",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "compression": "^1.7.3",
+    "debug": "^4.1.0",
+    "eslint": "^5.10.0",
+    "express": "^4.16.4",
+    "fs-extra": "^7.0.1",
+    "ipaddr.js": "^1.8.1",
+    "lodash": "^4.17.11",
+    "maxmind": "^2.12.0",
+    "moment": "^2.23.0",
+    "moment-timezone": "^0.5.23",
+    "nodemailer": "^4.7.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "serve-static": "^1.13.2",
     "when": "^3.7.8",
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "ava": "^0.23.0",
-    "nodemon": "^1.12.0"
-  },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/jamie-sherriff/solar-activity-server"
+    "ava": "^0.x",
+    "nodemon": "^1.18.9"
   },
   "scripts": {
     "start": "npm install && node index.js",
@@ -44,7 +40,7 @@
     "dev": "nodemon index.js --ignore data/ --ignore errorData/"
   },
   "author": "Jamie Sherriff",
-  "license": "MPL-2.0",
+  "license": "Mozilla Public License Version 2.0",
   "ava": {
     "timeout": "30s",
     "files": [

@@ -1,11 +1,6 @@
-/*
- * Copyright (c) <2017> <Jamie Sherriff>
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+/**
+ * Created by jamie on 10/09/2017.
  */
-
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -43,7 +38,6 @@ if (process.env.NODE_ENV === 'production') {
 function updateAllDataNow() {
 	return when.join(
 		readData.getLatest3DayForecastData(waitTimeMinutes.threeDayForeCast),
-		readData.getLatestWingKpData(waitTimeMinutes.wingKp), //isShortTermForecast
 		readData.getLatestSouthImage(waitTimeMinutes.latestSouthImage),
 		readData.getLatestKpValues(waitTimeMinutes.latestKpList),
 		readData.getLatestAurorNowCastMap(waitTimeMinutes.auroraNowCastMap),
@@ -51,24 +45,25 @@ function updateAllDataNow() {
 		email.readUserFile()
 	).then((allDataArray) => {
 		memoryStore.threeDayForeCast = allDataArray[0];
-		memoryStore.wingKp = allDataArray[1];
-		memoryStore.latestSouthImage = allDataArray[2];
-		memoryStore.latestKpList = allDataArray[3];
-		memoryStore.auroraNowCastMap = mapping.processData(allDataArray[4].data);
-		memoryStore.monthForecast = allDataArray[5];
-		memoryStore.userStore = allDataArray[6];
-		let emailObject = email.checkShortTermForeCast(allDataArray[1]);
-		email.sendEmailsForObject(emailObject, memoryStore.userStore).then((results) => {
-			logger.info(results);
-		});
+		memoryStore.latestSouthImage = allDataArray[1];
+		memoryStore.latestKpList = allDataArray[2];
+		memoryStore.auroraNowCastMap = mapping.processData(allDataArray[3].data);
+		memoryStore.monthForecast = allDataArray[4];
+		memoryStore.userStore = allDataArray[5];
+
 	});
 }
 
 function runStartupItems() {
 	return when
-		.join(location.initMaxmind(), updateAllDataNow())
+		.join(location.initMaxmind(), updateAllDataNow(), email.verifyEmailTransporter())
 		.then((resolvedPromises) => {
 			cityLookup = resolvedPromises[0];
+			if(resolvedPromises[2] === true){
+				email.sendAlertEmailsForUsers().then((results) => {
+					logger.info(`${results.length} Emails sent to users`);
+				});
+			}
 		});
 }
 
@@ -137,8 +132,11 @@ app.get('/3dayforecast', (req, res) => {
  */
 
 app.get('/shortTermForecast', (req, res) => {
-	logger.info('getting  shortTermForecast');
-	res.json(memoryStore.wingKp);
+	logger.warn('UpstreamData: Removed Upstream data for shortTermForecast, displaying old data');
+	let errorMessage = 'The upstream data has been removed for this endpoint: The requested URL /text/wing-kp.txt was not found on this server';
+	//404 - \"<!DOCTYPE HTML PUBLIC \\\"-//IETF//DTD HTML 2.0//EN\\\">\\n<html><head>\\n<title>404 Not Found</title>\\n</head><body>\\n<h1>Not Found</h1>\\n<p>The requested URL /text/wing-kp.txt was not found on this server.</p>\\n</body></html>\\n\"
+	let jsonResponse = {retrievedAt: moment().toISOString(), dataDateFormat: 'YYYY-MM-DD:HHmm', data: {}, error:errorMessage};
+	res.status(404).json(jsonResponse);
 });
 
 /**

@@ -19,6 +19,7 @@
 * Download a maxmind db from above and extract to /static
 * Set the DEFAULT_SOLAR_PORT environment variable for production use port to host the server on
 * Email config file location is set by SOLAR_SERVICE_SECRET_CONFIG_PATH environment variable
+* Download a maxmind db from above
 * `npm start` which is alias for `npm install && node index.js`
 
 ## Documentation

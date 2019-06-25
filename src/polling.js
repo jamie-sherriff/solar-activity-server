@@ -27,6 +27,9 @@ function latest3dayForecastPoll(waitMinutes, errorCount) {
 				.getLatest3DayForecastData(waitMinutes)
 				.then((latestData) => {
 					memoryStore.threeDayForeCast = latestData;
+					email.sendAlertEmailsForUsers().then((results) => {
+						logger.info(`${results.length} Emails sent to users`);
+					});
 					latest3dayForecastPoll(waitMinutes, errorCount);
 				})
 				.catch((error) => {
@@ -47,10 +50,6 @@ function latestWingKpPoll(waitMinutes, errorCount) { //ShortTermForecast
 			return readData
 				.getLatestWingKpData(waitMinutes)
 				.then((latestData) => {
-					let emailObject = email.checkShortTermForeCast(latestData);
-					email.sendEmailsForObject(emailObject).then((results) => {
-						logger.info(results);
-					});
 					memoryStore.wingKp = latestData;
 					latestWingKpPoll(waitMinutes, errorCount);
 				})

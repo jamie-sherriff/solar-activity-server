@@ -32,7 +32,7 @@ const customTransformStream = function (body, response) {
 	return {'headers': response.headers, 'data': body, 'statusCode': response.statusCode};
 };
 
-const DEFUALT_REQUEST_OPTIONS = {timeout: 60000, 'User-Agent': getUserAgent(), transform: customTransformStream};
+const DEFUALT_REQUEST_OPTIONS = {timeout: 120000, 'User-Agent': getUserAgent(), transform: customTransformStream};
 
 function writeErrorDataToFile(fileName, fileData) {
 	const filePath = path.resolve(__dirname, '..', 'errorData', fileName);
@@ -81,16 +81,39 @@ function formatMonthData(monthDataArray) {
 	return monthForecast;
 }
 
+function recoverListDataFromString(stringList){
+	stringList = stringList.trim();
+	let newList = [];
+	let startIndex, endIndex;
+	if(stringList[0] === '[' && stringList[1] === '['){
+		_.forEach(stringList,(char, index)=>{
+			if (char === '['){
+				startIndex = index;
+			}
+			else if(char === ']'){
+				endIndex = index;
+				let object = stringList.substring(startIndex, endIndex+1);
+				newList.push(JSON.parse(object));
+			}
+		})
+	}
+	return newList;
+}
+
 function getLatestKpValue() {
-	const rpOptions = _.merge(_.cloneDeep(DEFUALT_REQUEST_OPTIONS), {json: true});
+	const rpOptions = _.merge(_.cloneDeep(DEFUALT_REQUEST_OPTIONS), {json: true, timeout: 180000});
 	let retreivedData;
 	return rp(config.latestOneMinuteKIndexUrl, rpOptions)
 		.then((response) => {
 		let data = response.data;
 		retreivedData = data;
 		if (_.isArray(data) === false){
-			logger.error(`data is not an array but is type ${typeof  data}: ${data}`);
-			throw new Error('getLatestKpValue data must be an array');
+			const truncatedData = _.truncate(data, {
+				'length': 100,
+			});
+			logger.error(`data is not an array but is type ${typeof  data}: ${truncatedData}`);
+			data = recoverListDataFromString(data);
+			//throw new Error('getLatestKpValue data must be an array');
 		}
 		const keyNames = data.shift();
 		let latestKpObject = {};
@@ -152,6 +175,13 @@ function getMonthForecastData() {
 function getForecastData() {
 	let retreivedData;
 	const rpOptions = _.merge(_.cloneDeep(DEFUALT_REQUEST_OPTIONS), {encoding: 'utf8'});
+	const solarJson = {
+		retrievedAt: moment().toISOString(),
+		unitString: 'Kp',
+		dateFormat: 'YYYY-MM-DD', hourFormat: 'HH-mm',
+		observed: {description: '', value: ''},
+		expected: {description: '', value: '', atTime: null}
+	};
 	return rp(config.forecastThreeDayUrl, rpOptions)
 		.then((response) => {
 			let data = response.data;
@@ -173,17 +203,10 @@ function getForecastData() {
 			}
 			const timeArray = getTimes(solarData);
 			let formattedJson = formatDays(titles, solarData, timeArray);
-			const solarJson = {
-				timeIssued: timeIssued,
-				retrievedAt: moment().toISOString(),
-				product: productName,
-				data: formattedJson,
-				unitString: 'Kp',
-				dateFormat: 'YYYY-MM-DD', hourFormat: 'HH-mm',
-				rationale: rationales[0],
-				observed: {description: '', value: ''},
-				expected: {description: '', value: '', atTime: null}
-			};
+			solarJson.product = productName;
+			solarJson.data = formattedJson;
+			solarJson.timeIssued = timeIssued;
+			solarJson.rationale =  rationales[0];
 			debug(solarJson);
 			return solarJson;
 		})
@@ -192,7 +215,8 @@ function getForecastData() {
 			const fileName = 'getForecastDataError-' + moment().format('YYYY-MM-DD;HH-mm-ss-SSS') + '.txt';
 			retreivedData = retreivedData + '\n\n' + error.stack;
 			writeErrorDataToFile(fileName, retreivedData);
-			throw error;
+			solarJson.errorMessage = error.message;
+			return solarJson;
 		});
 }
 
@@ -248,7 +272,7 @@ function getShortTermForecast() {
 			const fileName = 'getShortTermForecast-' + moment().format('YYYY-MM-DD;HH-mm-ss-SSS') + '.txt';
 			retreivedData = retreivedData + '\n\n' + error.stack;
 			writeErrorDataToFile(fileName, retreivedData);
-			throw error;
+			return {retrievedAt: moment().toISOString(), dataDateFormat: 'YYYY-MM-DD:HHmm', data: {}, error:error.message};
 		});
 }
 

@@ -2,14 +2,15 @@
 const path = require('path');
 const waitTimeMinutes = {
 	latestSouthImage: 360,
-	latestKpList: 5,
-	threeDayForeCast: 120,
-	wingKp: 5,
+	latestKpList: 6,
+	threeDayForeCast: 5,
+	wingKp: 9999,
 	auroraNowCastMap: 180,
 	monthForecast: 1440
 };
 
 module.exports = {
+	emailWaitHours: 24,
 	waitTimeMinutes: waitTimeMinutes,
 	latestDataFile: path.resolve(__dirname, '..', 'data', '3dayDataLatest.json'),
 	wingKpDataFile: path.resolve(__dirname, '..', 'data', 'latestWing-kp.json'),

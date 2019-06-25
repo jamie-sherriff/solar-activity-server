@@ -64,4 +64,10 @@ typings/
 \.idea/
 /errorData/
 /data/
+*.mmdb
+
 /static
+/playing
+/doc
+
+.vs/

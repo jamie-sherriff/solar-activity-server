@@ -24,9 +24,9 @@ solar activity server that retreives data from NOAA
 	
 
 
-# email
+# <a name='email'></a> email
 
-## email subscribe
+## <a name='email-subscribe'></a> email subscribe
 [Back to top](#top)
 
 
@@ -41,16 +41,17 @@ solar activity server that retreives data from NOAA
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| emailJson | object | <p>json object that contains a potential email client</p>|
+|  emailJson | object | <p>json object that contains a potential email client</p>|
+
 
 
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| message | string | <p>contains message for result</p>|
+|  message | string | <p>contains message for result</p>|
 
-## email Unsubscribe
+## <a name='email-unsubscribe'></a> email Unsubscribe
 [Back to top](#top)
 
 
@@ -65,18 +66,19 @@ solar activity server that retreives data from NOAA
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| emailJson | object | <p>json object that contains a potential email client to remove</p>|
+|  emailJson | object | <p>json object that contains a potential email client to remove</p>|
+
 
 
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| message | string | <p>contains message for result</p>|
+|  message | string | <p>contains message for result</p>|
 
-# forecast
+# <a name='forecast'></a> forecast
 
-## Request three day forecast
+## <a name='request-three-day-forecast'></a> Request three day forecast
 [Back to top](#top)
 
 
@@ -87,22 +89,23 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| timeIssued | String | <p>ISO8601 string</p>|
-| retrievedAt | String | <p>ISO8601 string</p>|
-| product | String | <p>Description source of where data has come from</p>|
-| data | Object | <p>dataObject that contains objects of days</p>|
-| unitString | String | <p>unit string of data</p>|
-| dateFormat | String | <p>format time of days</p>|
-| hourFormat | String | <p>format time of data values</p>|
-| rationale | String | <p>Text description of forecast</p>|
-| observed | String | <p>Not yet complete</p>|
-| expected | String | <p>Not yet complete</p>|
+|  timeIssued | String | <p>ISO8601 string</p>|
+|  retrievedAt | String | <p>ISO8601 string</p>|
+|  product | String | <p>Description source of where data has come from</p>|
+|  data | Object | <p>dataObject that contains objects of days</p>|
+|  unitString | String | <p>unit string of data</p>|
+|  dateFormat | String | <p>format time of days</p>|
+|  hourFormat | String | <p>format time of data values</p>|
+|  rationale | String | <p>Text description of forecast</p>|
+|  observed | String | <p>Not yet complete</p>|
+|  expected | String | <p>Not yet complete</p>|
 
-## Request All Latest Kp values
+## <a name='request-all-latest-kp-values'></a> Request All Latest Kp values
 [Back to top](#top)
 
 
@@ -113,14 +116,15 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| data | String[] | <p>array of arrays that contains kp values in an array</p>|
-| array | string[] | <p>that contains key strings to the data arrays respective to their indexes</p>|
+|  data | String[] | <p>array of arrays that contains kp values in an array</p>|
+|  array | string[] | <p>that contains key strings to the data arrays respective to their indexes</p>|
 
-## latest forecast Now map
+## <a name='latest-forecast-now-map'></a> latest forecast Now map
 [Back to top](#top)
 
 
@@ -131,13 +135,14 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| array | Object[] | <p>of objects that contain lat,lng and weights</p>|
+|  array | Object[] | <p>of objects that contain lat,lng and weights</p>|
 
-## latest forecast image
+## <a name='latest-forecast-image'></a> latest forecast image
 [Back to top](#top)
 
 
@@ -148,13 +153,14 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| latestForecastImage | String | <p>encoded in base64</p>|
+|  latestForecastImage | String | <p>encoded in base64</p>|
 
-## Request Latest Kp value
+## <a name='request-latest-kp-value'></a> Request Latest Kp value
 [Back to top](#top)
 
 
@@ -165,15 +171,16 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| time_tag | String | <p>time value of kp value</p>|
-| estimated_kp | Number | <p>unrounded number value of estimated kp</p>|
-| kp | String | <p>string representing Kp with letter suffix</p>|
+|  time_tag | String | <p>time value of kp value</p>|
+|  estimated_kp | Number | <p>unrounded number value of estimated kp</p>|
+|  kp | String | <p>string representing Kp with letter suffix</p>|
 
-## Request Month forecast
+## <a name='request-month-forecast'></a> Request Month forecast
 [Back to top](#top)
 
 
@@ -184,17 +191,18 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| timeIssued | String | <p>ISO8601 string</p>|
-| retrievedAt | String | <p>ISO8601 string</p>|
-| product | String | <p>Description source of where data has come from</p>|
-| data | Object | <p>dataObject that contains objects of days</p>|
-| dataDateFormat | String | <p>time format of data object days</p>|
+|  timeIssued | String | <p>ISO8601 string</p>|
+|  retrievedAt | String | <p>ISO8601 string</p>|
+|  product | String | <p>Description source of where data has come from</p>|
+|  data | Object | <p>dataObject that contains objects of days</p>|
+|  dataDateFormat | String | <p>time format of data object days</p>|
 
-## short term forecast
+## <a name='short-term-forecast'></a> short term forecast
 [Back to top](#top)
 
 
@@ -205,17 +213,18 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| timeIssued | String | <p>, ISO8601 string</p>|
-| retrievedAt | String | <p>ISO8601 string</p>|
-| data | Object | <p>dataObject that contains objects of days</p>|
+|  timeIssued | String | <p>, ISO8601 string</p>|
+|  retrievedAt | String | <p>ISO8601 string</p>|
+|  data | Object | <p>dataObject that contains objects of days</p>|
 
-# internal
+# <a name='internal'></a> internal
 
-## root
+## <a name='root'></a> root
 [Back to top](#top)
 
 
@@ -226,19 +235,20 @@ solar activity server that retreives data from NOAA
 
 
 
+
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| version | String | <p>time on server in epoch</p>|
-| docs | String | <p>docs endpoint location</p>|
-| status | String | <p>status endpoint location</p>|
-| description | String | <p>description of service</p>|
-| name | String | <p>name of service</p>|
+|  version | String | <p>time on server in epoch</p>|
+|  docs | String | <p>docs endpoint location</p>|
+|  status | String | <p>status endpoint location</p>|
+|  description | String | <p>description of service</p>|
+|  name | String | <p>name of service</p>|
 
-# location
+# <a name='location'></a> location
 
-## get city information for current location by ip Address
+## <a name='get-city-information-for-current-location-by-ip-address'></a> get city information for current location by ip Address
 [Back to top](#top)
 
 
@@ -253,13 +263,14 @@ solar activity server that retreives data from NOAA
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| full | string | <p>if true return all info for city</p>|
+|  full | string | <p>if true return all info for city</p>|
+
 
 
 ### Success 200
 
 | Name     | Type       | Description                           |
 |:---------|:-----------|:--------------------------------------|
-| location | string | <p>contains city information nfor location</p>|
-| city | [object] | <p>Contains all city information</p>|
+|  location | string | <p>contains city information nfor location</p>|
+|  city | [object] | <p>Contains all city information</p>|
 
